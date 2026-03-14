@@ -1,0 +1,5 @@
+# Ignore compiled Java classes
+*.class
+
+# Ignore build/output folders
+build/
