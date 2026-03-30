@@ -1,33 +1,53 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.io.File;
-import java.util.ArrayList;
 
 public class inputFile {
+    
+    public HashMap<Integer, String> toConvert = new HashMap<>();
+    
 
     public static void main(String[] args){
 
         File file = new File(args[0]);
-        
-        input(file);
+
+
+        inputFile inputFile = new inputFile();
+        inputFile.input(file);
+
+
 
     }
-    
-    public static ArrayList<String> input(File inputtxt){
 
-        ArrayList<String> ar = new ArrayList<String>();
+    
+    public void input(File inputtxt){
+
+        prettifier prettifier = new prettifier();
+        //HashMap<String, Integer> toConvert = new HashMap<>();
+
         
         try(BufferedReader bf = new BufferedReader(new FileReader(inputtxt))){
             
-            String line = bf.readLine();
-            String[] parts = line.split(" ");
-            for(String part : parts){
+            String line;
+            int i = 0;
 
-                if(part.startsWith("#")){
+            while((line = bf.readLine()) != null){
+                
+                String[] parts = line.split(" ");
 
-                    part = part.substring(1, part.length() - 1);
-                    ar.add(part);
+                for(String part : parts){
+
+                    if(part.startsWith("#") || part.startsWith("##") || part.startsWith("*##") ){
+
+                        toConvert.put(i, part);
+                        //csvReader.csvRead(prettifier.airportLookup);
+
+                        i++;
+
+                    }
+                    
 
                 }
 
@@ -40,7 +60,6 @@ public class inputFile {
 
         }
 
-        return ar;
 
     }
     

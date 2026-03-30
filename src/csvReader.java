@@ -1,36 +1,96 @@
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class csvReader{
 
-    /*
+    public HashMap<Integer, String> converted = new HashMap<>();
+
+    
     public static void main(String[] args){
 
         String lookup = args[0];
         File file = new File(lookup);
         String iata = "LAX";
         
-        csvRead(file, iata);
+        //csvRead(file);
 
     }
-    */
     
-    public static ArrayList<String> csvRead(File airportLookup, ArrayList<String> airportCode){
+
+    
+    public void csvRead(File airportLookup){
         
-        ArrayList<String> airportName = new ArrayList<String>();
-        
+        prettifier prettifier = new prettifier();
+        csvReader csvReader = new csvReader();
+        inputFile inputFile = new inputFile();
+        String line;
+        System.out.println(inputFile.toConvert.get(0));
+
+
         
         try(BufferedReader bf = new BufferedReader(new FileReader(airportLookup))){
 
-            String line;
+            
+            String headerLine = bf.readLine();
+            String[] headers = headerLine.split(",");
+            HashMap<String, Integer> columnMap = new HashMap<String, Integer>();
+            for(int j = 0; j < headers.length; j++){
+                columnMap.put(headers[j], j);
+            }
+            int nameIndex = columnMap.get("name");
+            int i = 0;
+            System.out.println(inputFile.toConvert.get(0));
+            
+            
             while((line = bf.readLine()) != null){
 
-                String[] splittedLine = line.split(",");
-                if(splittedLine[4].contentEquals(airportCode.get(0))){
-                    
-                    airportName.add(splittedLine[0]);
+                String inSequence = inputFile.toConvert.get(i);
 
+                String[] splittedLine = line.split(",");
+
+                switch (inSequence) {
+                    //iata
+                    case "#[a-zA-z][a-zA-z]":
+
+                        inSequence = inSequence.substring(1, 3);
+                        int IATAIndex = columnMap.get("iata_code");
+                        if(inSequence.equals(splittedLine[IATAIndex])){
+                            //outputFile.outputConversion(prettifier.outputTxt, splittedLine[nameIndex]);
+                            csvReader.converted.put(i, splittedLine[nameIndex]);
+                            i++;
+
+                        }
+                        break;
+
+                    //icao    
+                    case "##[a-zA-z]":
+    
+                        inSequence = inSequence.substring(2, 5);
+                        int ICAOIndex = columnMap.get("icao_code");
+                        if(inSequence.equals(splittedLine[ICAOIndex])){
+                            //outputFile.outputConversion(prettifier.outputTxt, splittedLine[nameIndex]);
+                            csvReader.converted.put(i, splittedLine[nameIndex]);
+                            i++;
+                        }
+                        break;
+
+                    //city
+                    case "*##":
+
+                        inSequence = inSequence.substring(3);
+                        int cityIndex = columnMap.get("municipality");
+                        if(inSequence.equals(splittedLine[cityIndex])){
+                            //outputFile.outputConversion(prettifier.outputTxt, splittedLine[cityIndex]);
+                            csvReader.converted.put(i, splittedLine[cityIndex]);
+                            i++;
+                        }
+                        break;
+                        
+                    default:
+                        break;
+                    
                 }
+                
                 
             }
 
@@ -41,29 +101,6 @@ public class csvReader{
 
         }
 
-        try(BufferedReader bf = new BufferedReader(new FileReader(airportLookup))){
-
-            String line;
-            while((line = bf.readLine()) != null){
-
-                String[] splittedLine = line.split(",");
-                if(splittedLine[4].contentEquals(airportCode.get(1))){
-                    
-                    airportName.add(splittedLine[0]);
-
-                }
-                
-            }
-
-        }
-        catch(IOException e){
-
-            System.out.println(e);
-
-        }
-
-
-        return airportName;
 
     }
 

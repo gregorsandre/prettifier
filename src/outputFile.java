@@ -1,20 +1,51 @@
 import java.io.*;
-import java.util.ArrayList;
 
 public class outputFile {
 
-    public static void output(File outputFile ,ArrayList<String> airpotName){
-        
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))){
+    public void outputConversion(File outputFile){
 
-            bw.append(airpotName.get(0));
-            bw.append(" ");
-            bw.append(airpotName.get(1)); 
+        csvReader csvReader = new csvReader();
+        inputFile inputFile = new inputFile();
+        prettifier prettifier = new prettifier();
+
+        try(BufferedReader bf = new BufferedReader(new FileReader(outputFile))){
+            
+            String line;
+            while((line = bf.readLine()) != null){
+                
+                String[] parts = line.split(" ");
+                int i = 0;
+
+                for(String part : parts){
+
+                    if(part.startsWith("#") || part.startsWith("##") || part.startsWith("*##") ){
+
+                        part = csvReader.converted.get(i);
+
+
+                        i++;
+
+                    }
+                    
+
+                }
+
+
+                // write parts to output file
+
+
+
+            }
 
         }
-        catch (Exception e) {
-            System.out.println(e);
+        catch(IOException e){
+            
+            System.out.println("file not found");
+
         }
+
+
+
 
     }
 
