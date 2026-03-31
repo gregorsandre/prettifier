@@ -6,8 +6,6 @@ import java.io.File;
 
 public class inputFile {
     
-    public HashMap<Integer, String> toConvert = new HashMap<>();
-    
 
     public static void main(String[] args){
 
@@ -22,10 +20,9 @@ public class inputFile {
     }
 
     
-    public void input(File inputtxt){
+    public static HashMap<Integer, String> input(File inputtxt){
 
-        prettifier prettifier = new prettifier();
-        //HashMap<String, Integer> toConvert = new HashMap<>();
+        HashMap<Integer, String> toConvert = new HashMap<>();
 
         
         try(BufferedReader bf = new BufferedReader(new FileReader(inputtxt))){
@@ -59,6 +56,8 @@ public class inputFile {
             System.out.println("file not found");
 
         }
+
+        return toConvert;
 
 
     }

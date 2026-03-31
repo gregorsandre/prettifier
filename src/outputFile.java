@@ -20,7 +20,7 @@ public class outputFile {
 
                     if(part.startsWith("#") || part.startsWith("##") || part.startsWith("*##") ){
 
-                        part = csvReader.converted.get(i);
+                        //part = csvReader.converted.get(i);
 
 
                         i++;

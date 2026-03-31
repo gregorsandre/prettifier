@@ -1,16 +1,14 @@
 import java.nio.file.*;
 import java.io.File;
+import java.util.HashMap;
 
 
 public class prettifier {
 
-    public File inputTxt;
-    public File outputTxt;
-    public File airportLookup;
-
 
     public static void main(String[] args){
         // input.txt output.txt airport-lookup.csv
+
 
         if(args.length == 1 && args[0].equals("-h")){
 
@@ -52,11 +50,11 @@ public class prettifier {
             System.exit(0);
         }
 
-        inputFile inputFile = new inputFile();
-        inputFile.input(inputTxt);
+        HashMap<Integer, String> toConvert = inputFile.input(inputTxt);
 
-        csvReader csvReader = new csvReader();
-        csvReader.csvRead(airportlookup);
+        HashMap<Integer, String> converted = csvReader.csvRead(airportlookup, toConvert);
+
+        System.out.println(converted);
 /*
         outputFile outputFile = new outputFile();
         outputFile.outputConversion(outputTxt);

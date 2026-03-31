@@ -3,8 +3,6 @@ import java.util.HashMap;
 
 public class csvReader{
 
-    public HashMap<Integer, String> converted = new HashMap<>();
-
     
     public static void main(String[] args){
 
@@ -18,15 +16,10 @@ public class csvReader{
     
 
     
-    public void csvRead(File airportLookup){
+    public static HashMap<Integer, String> csvRead(File airportLookup, HashMap<Integer, String> toConvert){
         
-        prettifier prettifier = new prettifier();
-        csvReader csvReader = new csvReader();
-        inputFile inputFile = new inputFile();
         String line;
-        System.out.println(inputFile.toConvert.get(0));
-
-
+        HashMap<Integer, String> converted = new HashMap<>();
         
         try(BufferedReader bf = new BufferedReader(new FileReader(airportLookup))){
 
@@ -39,69 +32,69 @@ public class csvReader{
             }
             int nameIndex = columnMap.get("name");
             int i = 0;
-            System.out.println(inputFile.toConvert.get(0));
+            String inSequence = toConvert.get(i);
+            System.out.println(inSequence);
             
             
             while((line = bf.readLine()) != null){
 
-                String inSequence = inputFile.toConvert.get(i);
-
                 String[] splittedLine = line.split(",");
 
-                switch (inSequence) {
-                    //iata
-                    case "#[a-zA-z][a-zA-z]":
+                        //iata
+                    if(inSequence.startsWith("#[a-zA-z][a-zA-z]")){
 
-                        inSequence = inSequence.substring(1, 3);
+                        inSequence = inSequence.substring(1, 4);
                         int IATAIndex = columnMap.get("iata_code");
                         if(inSequence.equals(splittedLine[IATAIndex])){
-                            //outputFile.outputConversion(prettifier.outputTxt, splittedLine[nameIndex]);
-                            csvReader.converted.put(i, splittedLine[nameIndex]);
+                            converted.put(i, splittedLine[nameIndex]);
                             i++;
 
                         }
-                        break;
+                        else{
+                            continue;
+                        }
 
-                    //icao    
-                    case "##[a-zA-z]":
-    
-                        inSequence = inSequence.substring(2, 5);
+                    }   //icao
+                    else if(inSequence.startsWith("##[a-zA-z]")){    
+                    
+                        inSequence = inSequence.substring(2, 6);
                         int ICAOIndex = columnMap.get("icao_code");
                         if(inSequence.equals(splittedLine[ICAOIndex])){
-                            //outputFile.outputConversion(prettifier.outputTxt, splittedLine[nameIndex]);
-                            csvReader.converted.put(i, splittedLine[nameIndex]);
+                            converted.put(i, splittedLine[nameIndex]);
                             i++;
                         }
-                        break;
+                        else{
+                            continue;
+                        }
 
-                    //city
-                    case "*##":
+                    }   //city
+                    else if(inSequence.startsWith("*##")){
 
                         inSequence = inSequence.substring(3);
                         int cityIndex = columnMap.get("municipality");
                         if(inSequence.equals(splittedLine[cityIndex])){
-                            //outputFile.outputConversion(prettifier.outputTxt, splittedLine[cityIndex]);
-                            csvReader.converted.put(i, splittedLine[cityIndex]);
+                            converted.put(i, splittedLine[cityIndex]);
                             i++;
                         }
-                        break;
+                        else{
+                            continue;
+                        }
                         
-                    default:
-                        break;
+                    }    
+            
                     
-                }
-                
-                
             }
-
+                
+                
         }
         catch(IOException e){
 
-            System.out.println(e);
+            System.out.println("couldnt read");
 
         }
 
-
+        return converted;
+    
     }
 
 }
