@@ -31,9 +31,10 @@ public class csvReader{
                 columnMap.put(headers[j], j);
             }
             int nameIndex = columnMap.get("name");
+           
             int i = 0;
             String inSequence = toConvert.get(i);
-            System.out.println(inSequence);
+            //System.out.println(inSequence);
             
             
             while((line = bf.readLine()) != null){
