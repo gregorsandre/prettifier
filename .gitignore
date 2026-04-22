@@ -1,5 +1,11 @@
 # Ignore compiled Java classes
 *.class
 
-# Ignore build/output folders
+# Ignore build/output dirs
 build/
+
+# ignore vscode dir
+.vscode/
+
+# ignore generated output
+output.txt
