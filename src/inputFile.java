@@ -6,20 +6,6 @@ import java.io.File;
 
 public class inputFile {
     
-
-    public static void main(String[] args){
-
-        File file = new File(args[0]);
-
-
-        inputFile inputFile = new inputFile();
-        inputFile.input(file);
-
-
-
-    }
-
-    
     public static HashMap<Integer, String> input(File inputtxt){
 
         HashMap<Integer, String> toConvert = new HashMap<>();

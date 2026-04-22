@@ -2,20 +2,7 @@ import java.io.*;
 import java.util.HashMap;
 
 public class csvReader{
-
-    
-    public static void main(String[] args){
-
-        String lookup = args[0];
-        File file = new File(lookup);
-        String iata = "LAX";
-        
-        //csvRead(file);
-
-    }
-    
-
-    
+      
     public static HashMap<Integer, String> csvRead(File airportLookup, HashMap<Integer, String> toConvert){
         
         String line;
