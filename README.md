@@ -21,7 +21,7 @@ Prettifier is a command-line tool that converts a flight itinerary text file int
 ## Usage
 
 ```
-java -cp build prettifier <input> <output> <airport-lookup>
+java -cp build prettifier ./input.txt ./output.txt ./airport-lookup.csv
 ```
 
 | Argument | Description |

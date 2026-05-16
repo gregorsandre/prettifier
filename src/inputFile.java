@@ -1,51 +1,41 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.io.File;
 
 public class inputFile {
-    
-    public static HashMap<Integer, String> input(File inputtxt){
+
+    public static HashMap<Integer, String> input(File inputTxt) {
 
         HashMap<Integer, String> toConvert = new HashMap<>();
 
-        
-        try(BufferedReader bf = new BufferedReader(new FileReader(inputtxt))){
-            
+        try (BufferedReader bf = new BufferedReader(new FileReader(inputTxt))) {
+
             String line;
             int i = 0;
 
-            while((line = bf.readLine()) != null){
-                
-                String[] parts = line.split(" ");
+            while ((line = bf.readLine()) != null) {
 
-                for(String part : parts){
+                String[] parts = line.trim().split("\\s+");
 
-                    if(part.startsWith("#") || part.startsWith("##") || part.startsWith("*##") ){
+                for (String part : parts) {
 
+                    if (part.startsWith("*##") || part.startsWith("*#") || part.startsWith("##") || part.startsWith("#")) {
                         toConvert.put(i, part);
-                        //csvReader.csvRead(prettifier.airportLookup);
-
                         i++;
-
                     }
-                    
 
                 }
 
             }
 
-        }
-        catch(IOException e){
-            
-            System.out.println("file not found");
-
+        } catch (IOException e) {
+            System.out.println("Input not found");
         }
 
         return toConvert;
 
-
     }
-    
+
 }
