@@ -31,7 +31,7 @@ public class prettifier {
 
     private static void printUsage() {
         System.out.println("itinerary usage:");
-        System.out.println("$ java prettifier.java ./input.txt ./output.txt ./airport-lookup.csv");
+        System.out.println("$java -cp build prettifier ./input.txt ./output.txt ./airport-lookup.csv");
     }
 
 }
